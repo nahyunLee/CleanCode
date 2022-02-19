@@ -1,7 +1,5 @@
 package chapter12;
 
-import com.sun.imageio.plugins.common.ImageUtil;
-
 public class Example12 {
     public void scaleToOneDimension(float desiredDimension, float imageDimansion){
         if(Math.abs(desiredDimension - imageDimansion) <errorThreshold)
@@ -9,13 +7,13 @@ public class Example12 {
         float scaleFactor = desiredDimension / imageDimansion;
         scaleFactor = (float)(Math.floor(scaleFactor * 100) * 0.01f);
 
-        RenderedOp newImage = ImageUtilities.getScaledImage(image, scalingFactor, scalingFactor);
-        image.dispose();
-        System.gc();
-        image = newImage;
+        replaceImage(ImageUtilities.getScaledImage(image, scalingFactor, scalingFactor));
     }
     public synchronized void rotate(int degrees) {
-        RenderedOp newImage = ImageUtilies.getRotatedImage(image, degrees);
+        replaceImage(ImageUtilies.getRotatedImage(image, degrees));
+    }
+
+    public void replaceImage(RenderedOp newImage){
         image.dispose();
         System.gc();
         image = newImage;
